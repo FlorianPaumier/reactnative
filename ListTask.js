@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const ListTask: Node = ({ show, hide }) => {
 
   const [showForm, setShowForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState([
     { key: 0, name: "Devin", done: false },
@@ -22,6 +23,7 @@ const ListTask: Node = ({ show, hide }) => {
 
   useEffect(() => {
     getData();
+    setIsLoading(false)
   }, [show]);
 
   const toggleSwitch = (e) => {
@@ -42,6 +44,7 @@ const ListTask: Node = ({ show, hide }) => {
   }
 
   const add = async (value, type) => {
+    setIsLoading(true)
     value.key = Date.now();
     const items = [...data, value];
     try {
@@ -54,6 +57,8 @@ const ListTask: Node = ({ show, hide }) => {
     } catch (error) {
       // Error saving data
     }
+
+    setIsLoading(false)
   };
 
   const deleteItem = async (item) => {
@@ -81,6 +86,8 @@ const ListTask: Node = ({ show, hide }) => {
             renderItem={({ item }) =>
               <View>
                 <Text style={styles.item}>{item.name}</Text>
+                <Text style={styles.item}>{item.date ?? item.date}</Text>
+                <Text style={styles.item}>{item.coord ?? item.coord}</Text>
                 <Switch
                   trackColor={{ false: "#767577", true: "#81b0ff" }}
                   thumbColor={item.done ? "#f5dd4b" : "#f4f3f4"}
@@ -93,7 +100,7 @@ const ListTask: Node = ({ show, hide }) => {
             }
           />
           <Button title={"Add"} onPress={() => setShowForm(true)} />
-          <ListForm show={showForm} add={add} type={"task"} />
+          <ListForm show={showForm} add={add} type={"task"} isLoading={isLoading}/>
         </View>
       )}
     </View>
