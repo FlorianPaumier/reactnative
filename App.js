@@ -6,42 +6,24 @@
  * @flow strict-local
  */
 
-import type { Node } from "react";
-import React, { useState } from "react";
-import { Button, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from "react-native";
+import type {Node} from 'react';
+import React, {useState} from 'react';
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from 'react-native';
 
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import ListTask from "./ListTask";
-import ListAchat from "./ListAchat";
-
-const Section = ({ children, title }): Node => {
-  const isDarkMode = useColorScheme() === "dark";
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import ListTask from './ListTask';
+import ListAchat from './ListAchat';
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === "dark";
+  const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -52,18 +34,18 @@ const App: () => Node = () => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            display: "flex",
-            flexDirection: "row",
+            display: 'flex',
+            flexDirection: 'row',
           }}>
           <Button
-            title={"Liste Achat"}
+            title={'Liste Achat'}
             style={styles.button}
             onPress={() => {
               setAchatShow(!achatShow);
@@ -72,7 +54,7 @@ const App: () => Node = () => {
           />
           <Button
             style={styles.button}
-            title={"Liste Task"}
+            title={'Liste Task'}
             onPress={() => {
               setAchatShow(false);
               setTaskShow(!taskShow);
@@ -95,21 +77,21 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
   },
   highlight: {
-    fontWeight: "700",
+    fontWeight: '700',
   },
   button: {
-    backgroundColor: "#68a0cf",
+    backgroundColor: '#68a0cf',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: '#fff',
   },
 });
 
